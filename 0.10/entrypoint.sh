@@ -5,10 +5,6 @@ if [ "${1:0:1}" = '-' ]; then
     set -- telegraf "$@"
 fi
 
-if [ "$1" = 'telegraf' ]; then
-    set -- "$@"
-fi
-
 if [ "$( echo $@ | grep "\-config /etc/telegraf/telegraf.conf")" != "" ]; then
     # Print the config file without the comments
     separatorLine="-------------------------------------------------"
