@@ -5,12 +5,10 @@ if [ "${1:0:1}" = '-' ]; then
     set -- telegraf "$@"
 fi
 
-if [ "$( echo $@ | grep "\-config /etc/telegraf/telegraf.conf")" != "" ]; then
-    # Print the config file without the comments
-    separatorLine="-------------------------------------------------"
-    echo -e $separatorLine'\n'"Using Default Config"'\n'$separatorLine 
-    sed -e  's/^\ *#.*//' /etc/telegraf/telegraf.conf | awk '{if (NF > 0) print $0}'
-    echo $separatorLine
+# TODO remove this for 0.13
+if [ "$1" = 'telegraf' ]; then
+    shift
+    set -- telegraf -config /etc/telegraf/telegraf.conf "$@"
 fi
 
 exec "$@"
